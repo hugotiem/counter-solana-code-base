@@ -47,7 +47,7 @@ describe("counter", async () => {
       authority: provider.wallet.publicKey,
     }).rpc();
     const counter = await program.account.counterAccount.fetch(counterPda);
-    assert.equal(counter.count, 2)
+    assert.equal(counter.counter, 2)
   });
 
   it("Is decremented!", async () => {
@@ -60,7 +60,9 @@ describe("counter", async () => {
     }).rpc();
     const counter = await program.account.counterAccount.fetch(counterPda);
     
-    assert.equal(counter.count, 0)
+    assert.equal(counter.counter, 0)
+
+    console.log("ok")
 
     await program.methods.decrement(0, 2).accounts({
       counterAccount: counterPda,
@@ -68,6 +70,6 @@ describe("counter", async () => {
     }).rpc();
     const counter2 = await program.account.counterAccount.fetch(counterPda);
 
-    assert.equal(counter2.count, 0)
+    assert.equal(counter2.counter, 0)
   });
 });
